@@ -82,7 +82,7 @@ class RsaPrivate extends Object {
             $input = substr($data, 0, $maxlength);
             $data = substr($data, $maxlength);
             $encrypted = '';
-            $result = openssl_private_encrypt($input, $encrypted, $this->getKey());
+            $result = openssl_private_encrypt($input, $encrypted, $this->getKey(), OPENSSL_PKCS1_OAEP_PADDING);
             if ($result === false) {
                 return null;
             }
@@ -105,7 +105,7 @@ class RsaPrivate extends Object {
             $input = substr($data, 0, $maxlength);
             $data = substr($data, $maxlength);
             $decrypted = '';
-            $result = openssl_private_decrypt($input, $decrypted, $this->getKey());
+            $result = openssl_private_decrypt($input, $decrypted, $this->getKey(), OPENSSL_PKCS1_OAEP_PADDING);
             if ($result === false) {
                 return null;
             }

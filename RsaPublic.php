@@ -25,7 +25,7 @@ class RsaPublic extends Object {
      * Factory
      * @param string $key KeyPath | KeyContent
      * @param string $passphrase
-     * @return RsaPublic
+     * @return RsaPrivate
      * @throws \yii\base\Exception
      */
     public static function model($key, $passphrase = '') {
@@ -82,7 +82,7 @@ class RsaPublic extends Object {
             $input = substr($data, 0, $maxlength);
             $data = substr($data, $maxlength);
             $encrypted = '';
-            $result = openssl_public_encrypt($input, $encrypted, $this->getKey());
+            $result = openssl_public_encrypt($input, $encrypted, $this->getKey(), OPENSSL_PKCS1_OAEP_PADDING);
             if ($result === false) {
                 return null;
             }
@@ -105,7 +105,7 @@ class RsaPublic extends Object {
             $input = substr($data, 0, $maxlength);
             $data = substr($data, $maxlength);
             $decrypted = '';
-            $result = openssl_public_decrypt($input, $decrypted, $this->getKey());
+            $result = openssl_public_decrypt($input, $decrypted, $this->getKey(), OPENSSL_PKCS1_OAEP_PADDING);
             if ($result === false) {
                 return null;
             }
